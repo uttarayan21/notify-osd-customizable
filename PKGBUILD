@@ -14,10 +14,12 @@ makedepends=('pkgconfig' 'libnotify' 'gnome-common')
 provides=('notification-daemon' 'notify-osd')
 conflicts=('notify-osd')
 install=$pkgname.install
-source=("$pkgname::git+${url}.git")
+source=(config "$pkgname::git+${url}.git")
+sha256sums=('c314441184b49e23485eb1da8ec3d998d63cff11c00e382d65c3667ce3131d0d'
+            'SKIP')
 
 build() {
-  cd "$srcdir/$_realname-$_realver"
+  cd "$srcdir/$pkgname"
   #sed -i 's,/usr/lib/notify-osd/,@LIBEXECDIR@/,' data/org.freedesktop.Notifications.service.in
 
   export AUTOMAKE=automake
@@ -28,7 +30,7 @@ build() {
  }
 
 package() {
-	cd "$srcdir/$_realname-$_realver"
+	cd "$srcdir/$pkgname"
 	make DESTDIR="$pkgdir/" install
 	install -D -m644 ${srcdir}/config ${pkgdir}/etc/skel/.config/notify-osd/config
  }
