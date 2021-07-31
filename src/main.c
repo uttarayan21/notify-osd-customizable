@@ -95,7 +95,7 @@ void load_settings(void)
 {
     char file[PATH_MAX];
     uid_t uid = getuid();
-    const char* settings_file_name = ".notify-osd";
+    const char* settings_file_name = ".config/notify-osd/config";
     
     struct passwd* pw = getpwuid(uid);
     if (!pw) {
